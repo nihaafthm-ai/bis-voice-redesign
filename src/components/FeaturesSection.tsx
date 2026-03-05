@@ -1,68 +1,84 @@
 import { motion } from "framer-motion";
-import { MessageSquare, Phone, Mail, BarChart3, FileText, Headphones, Shield, Users } from "lucide-react";
+import { MessageSquare, Phone, Mail, BarChart3, FileText, Headphones } from "lucide-react";
 
 const features = [
-  { icon: MessageSquare, title: "AI Chat Assistant", desc: "Custom conversations tailored to your workflows" },
-  { icon: Phone, title: "Voice & SMS Integration", desc: "Multi-channel engagement with patients" },
-  { icon: Mail, title: "Automated Email Notifications", desc: "For appointments, reminders & updates" },
-  { icon: BarChart3, title: "Analytics & Reporting", desc: "Real-time insights, performance metrics" },
-  { icon: FileText, title: "Full Chat Documentation", desc: "Transparent transcripts of all interactions" },
-  { icon: Headphones, title: "Call Recordings", desc: "Every call logged for quality assurance" },
-  { icon: Shield, title: "HIPAA-Compliant Infrastructure", desc: "Secure hosting and data privacy" },
-  { icon: Users, title: "Client Success Support", desc: "Personalized onboarding and optimization" },
+  {
+    icon: MessageSquare,
+    title: "AI Chat Assistant for patient-tailored communication",
+    desc: "Custom conversations tailored to your workflows. Instant responses to patient inquiries with natural language understanding.",
+  },
+  {
+    icon: Phone,
+    title: "Voice & SMS integration for multi-channel outreach",
+    desc: "Engage patients across voice calls, SMS, and chat — all managed from a single AI-powered platform.",
+  },
+  {
+    icon: Mail,
+    title: "Automated email notifications for appointments & updates",
+    desc: "Send appointment confirmations, reminders, and follow-ups automatically. Never miss a patient touchpoint.",
+  },
+  {
+    icon: BarChart3,
+    title: "Real-time analytics and reporting dashboard",
+    desc: "Track call volumes, patient engagement rates, collection performance, and ROI with comprehensive dashboards.",
+  },
+  {
+    icon: FileText,
+    title: "Full chat documentation and audit trails",
+    desc: "Every interaction is logged with full transcripts for compliance, training, and quality assurance purposes.",
+  },
+  {
+    icon: Headphones,
+    title: "Call recordings for quality assurance monitoring",
+    desc: "Every call recorded and indexed for easy review, ensuring consistent quality across all patient interactions.",
+  },
 ];
-
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 const FeaturesSection = () => {
   return (
-    <section id="features" className="py-24 relative">
-      <div className="container mx-auto px-6">
+    <section id="features" className="py-28 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <span className="section-label">Features</span>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold mt-3 mb-4">
-            Accessible AI Features<br />
-            <span className="text-gradient">With Great Power</span>
+          <span className="section-label inline-block mb-4">Features</span>
+          <h2 className="text-4xl md:text-5xl xl:text-6xl font-heading font-bold leading-tight">
+            Accessible <span className="text-gradient-purple">AI Features</span>
+            <br />With Great Power
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Free up staff and ensure patients are supported 24/7 with our comprehensive suite of AI-powered tools.
-          </p>
         </motion.div>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {features.map((f) => (
+        {/* Horizontal scrolling feature cards like AI Globe */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {features.map((f, i) => (
             <motion.div
               key={f.title}
-              variants={item}
-              className="bg-card border border-border rounded-2xl p-6 card-hover group"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="group bg-card border border-border rounded-2xl p-8 card-hover relative overflow-hidden"
             >
-              <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                <f.icon size={22} className="text-primary" />
+              {/* Hover glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              <div className="relative z-10">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/10 border border-primary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                  <f.icon size={28} className="text-primary" />
+                </div>
+                <h3 className="font-heading font-semibold text-lg text-foreground mb-3 leading-snug">{f.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
               </div>
-              <h3 className="font-heading font-semibold text-foreground mb-2">{f.title}</h3>
-              <p className="text-sm text-muted-foreground">{f.desc}</p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
